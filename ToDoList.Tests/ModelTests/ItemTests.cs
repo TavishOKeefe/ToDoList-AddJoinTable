@@ -12,7 +12,7 @@ namespace ToDoList.Tests
     public void Dispose()
     {
       Item.ClearAll();
-      Category.ClearAll();
+      // Category.ClearAll();
     }
 
     public ItemTest()
@@ -198,6 +198,24 @@ namespace ToDoList.Tests
 
       //Assert
       CollectionAssert.AreEqual(testCategoryItems, resultCategoryItems);
+    }
+    [TestMethod]
+    public void AddCategory_AddsCategoryToItem_CategoryList()
+    {
+      //Arrange
+      Item testItem = new Item("Mow the lawn");
+      testItem.Save();
+      Category testCategory = new Category("Home stuff");
+      testCategory.Save();
+
+      //Act
+      testItem.AddCategory(testCategory);
+
+      List<Category> result = testItem.GetCategories();
+      List<Category> testList = new List<Category>{testCategory};
+
+      //Assert
+      CollectionAssert.AreEqual(testList, result);
     }
 
   }
